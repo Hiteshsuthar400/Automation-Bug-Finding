@@ -373,9 +373,8 @@ TOOLS = {
         "category": "Cloud",
         "status": "important",
         "install_cmd": [
-            "pip3 install s3-scanner",
-            "git clone https://github.com/sa7mon/S3Scanner.git",
-            "cd S3Scanner && pip3 install -r requirements.txt"
+            "go install -v github.com/sa7mon/s3scanner@latest",
+            "sudo cp /root/go/bin/s3scanner /usr/bin"
         ],
         "check_cmd": "s3scanner"
     },
