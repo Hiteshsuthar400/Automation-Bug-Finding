@@ -76,7 +76,7 @@ TOOLS = {
             "go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest",
             "Manual: https://github.com/projectdiscovery/httpx"
         ],
-        "check_cmd": "httpx --version"
+        "check_cmd": "httpx --help"
     },
     "nmap": {
         "description": "Network scanning and enumeration",
