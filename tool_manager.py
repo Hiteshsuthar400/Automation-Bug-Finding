@@ -43,7 +43,7 @@ TOOLS = {
         "category": "Reconnaissance",
         "status": "essential",
         "install_cmd": [
-            "go install -v github.com/OWASP/Amass/v3/...@master",
+            "go install -v github.com/owasp-amass/amass/v5/cmd/amass@main",
             "Manual: https://github.com/OWASP/Amass"
         ],
         "check_cmd": "amass"
