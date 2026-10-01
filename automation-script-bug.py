@@ -2,10 +2,12 @@
 
 """
 Bug Hunter - Authorized Security Recon Automation
-Python port of the Bash script.
+Python port of the Bash script with Auto-Update functionality.
 
 Usage:
   python3 automation-script-bug.py example.com
+  python3 automation-script-bug.py --update
+  python3 automation-script-bug.py --check-update
 """
 
 import os
@@ -13,10 +15,19 @@ import re
 import shutil
 import subprocess
 import sys
+import socket
+import platform
+import json
+import hashlib
 from datetime import datetime
 from pathlib import Path
+from urllib.request import urlopen
+from urllib.error import URLError
 
 TARGET = ""
+CONFIG_DIR = Path.home() / ".bug-hunter"
+CONFIG_FILE = CONFIG_DIR / "config.json"
+UPDATE_LOG = CONFIG_DIR / "update.log"
 
 RED = "\033[0;31m"
 GREEN = "\033[0;32m"
@@ -24,6 +35,165 @@ YELLOW = "\033[1;33m"
 BLUE = "\033[0;34m"
 CYAN = "\033[0;36m"
 NC = "\033[0m"
+
+# GitHub repository info
+GITHUB_OWNER = "Hiteshsuthar400"
+GITHUB_REPO = "Automation-Bug-Finding"
+GITHUB_SCRIPT = "automation-script-bug.py"
+GITHUB_RAW_URL = f"https://raw.githubusercontent.com/{GITHUB_OWNER}/{GITHUB_REPO}/main/{GITHUB_SCRIPT}"
+GITHUB_RELEASES_API = f"https://api.github.com/repos/{GITHUB_OWNER}/{GITHUB_REPO}/contents/{GITHUB_SCRIPT}"
+
+
+def log(message: str) -> None:
+    print(f"{BLUE}[*]{NC} {message}")
+
+
+def success(message: str) -> None:
+    print(f"{GREEN}[+]{NC} {message}")
+
+
+def warning(message: str) -> None:
+    print(f"{YELLOW}[!]{NC} {message}")
+
+
+def error(message: str) -> None:
+    print(f"{RED}[-]{NC} {message}")
+
+
+def ensure_config_dir() -> None:
+    """Ensure config directory exists."""
+    CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def get_file_hash(filepath: Path) -> str:
+    """Calculate SHA256 hash of a file."""
+    sha256_hash = hashlib.sha256()
+    with open(filepath, "rb") as f:
+        for byte_block in iter(lambda: f.read(4096), b""):
+            sha256_hash.update(byte_block)
+    return sha256_hash.hexdigest()
+
+
+def get_remote_file_hash(url: str) -> str:
+    """Get file hash from GitHub."""
+    try:
+        with urlopen(GITHUB_RELEASES_API) as response:
+            data = json.loads(response.read().decode())
+            if "sha" in data:
+                return data["sha"]
+    except (URLError, json.JSONDecodeError):
+        pass
+    return ""
+
+
+def download_update() -> bool:
+    """Download the latest script from GitHub."""
+    try:
+        log(f"Downloading latest script from {GITHUB_RAW_URL}")
+        with urlopen(GITHUB_RAW_URL) as response:
+            content = response.read().decode("utf-8")
+        
+        script_path = Path(__file__).resolve()
+        
+        # Create backup
+        backup_path = script_path.with_suffix(".bak")
+        shutil.copy2(script_path, backup_path)
+        log(f"Backup created: {backup_path}")
+        
+        # Write new version
+        script_path.write_text(content, encoding="utf-8")
+        script_path.chmod(0o755)
+        
+        success("Script updated successfully!")
+        log(f"Updated: {script_path}")
+        log(f"Backup: {backup_path}")
+        
+        # Log update
+        log_update(f"Update completed successfully at {datetime.now()}")
+        return True
+    except URLError as e:
+        error(f"Failed to download update: {e}")
+        return False
+    except Exception as e:
+        error(f"Update failed: {e}")
+        return False
+
+
+def check_update() -> bool:
+    """Check if update is available."""
+    try:
+        log("Checking for updates...")
+        with urlopen(GITHUB_RAW_URL) as response:
+            remote_content = response.read().decode("utf-8")
+        
+        local_path = Path(__file__).resolve()
+        local_content = local_path.read_text(encoding="utf-8")
+        
+        if remote_content == local_content:
+            success("You are running the latest version!")
+            return False
+        else:
+            warning("A new version is available!")
+            log("Run with --update flag to update: python3 automation-script-bug.py --update")
+            return True
+    except URLError as e:
+        error(f"Failed to check for updates: {e}")
+        return False
+    except Exception as e:
+        error(f"Check failed: {e}")
+        return False
+
+
+def log_update(message: str) -> None:
+    """Log update activity."""
+    ensure_config_dir()
+    with open(UPDATE_LOG, "a", encoding="utf-8") as f:
+        f.write(f"{message}\n")
+
+
+def show_update_menu() -> None:
+    """Show update menu."""
+    print()
+    print(f"{CYAN}============================================================{NC}")
+    print(f"{CYAN}             UPDATE MENU{NC}")
+    print(f"{CYAN}============================================================{NC}")
+    print()
+    print("1. Check for updates")
+    print("2. Update script now")
+    print("3. View update log")
+    print("4. Back to main menu")
+    print()
+    choice = input("Select option (1-4): ").strip()
+    
+    if choice == "1":
+        check_update()
+    elif choice == "2":
+        confirm = input("Do you want to update? (yes/no): ").strip().lower()
+        if confirm in ["yes", "y"]:
+            if download_update():
+                print()
+                success("Update complete! Please restart the script.")
+                sys.exit(0)
+        else:
+            log("Update cancelled.")
+    elif choice == "3":
+        view_update_log()
+    elif choice == "4":
+        return
+    else:
+        error("Invalid option!")
+
+
+def view_update_log() -> None:
+    """Display update log."""
+    ensure_config_dir()
+    if UPDATE_LOG.exists():
+        log(f"Update log ({UPDATE_LOG}):")
+        print()
+        with open(UPDATE_LOG, "r", encoding="utf-8") as f:
+            print(f.read())
+    else:
+        log("No update log found.")
 
 
 def parse_target(raw_target: str) -> str:
@@ -46,22 +216,6 @@ def banner() -> None:
     print(f"Target : {TARGET}")
     print(f"Output : {BASE_DIR}")
     print()
-
-
-def log(message: str) -> None:
-    print(f"{BLUE}[*]{NC} {message}")
-
-
-def success(message: str) -> None:
-    print(f"{GREEN}[+]{NC} {message}")
-
-
-def warning(message: str) -> None:
-    print(f"{YELLOW}[!]{NC} {message}")
-
-
-def error(message: str) -> None:
-    print(f"{RED}[-]{NC} {message}")
 
 
 def run_tool(tool: str) -> bool:
@@ -99,7 +253,7 @@ def write_txt(path: Path, text: str) -> None:
     path.write_text(text, encoding="utf-8")
 
 
-def read_unique_lines(path: Path) -> list[str]:
+def read_unique_lines(path: Path) -> list:
     if not path.exists():
         return []
     lines = []
@@ -111,7 +265,7 @@ def read_unique_lines(path: Path) -> list[str]:
     return sorted(set(lines))
 
 
-def append_unique_lines(path: Path, lines: list[str]) -> None:
+def append_unique_lines(path: Path, lines: list) -> None:
     if not lines:
         return
     existing = set(read_unique_lines(path))
@@ -182,8 +336,6 @@ def subdomain_enum() -> None:
         run_cmd("Running amass", "amass", "enum", "-passive", "-d", TARGET, "-o", str(SUB_DIR / "amass.txt"))
 
     if run_tool("assetfinder"):
-        run_cmd("Running assetfinder", "assetfinder", "--subs-only", TARGET)
-        # assetfinder writes to stdout, which is redirected to the log. To keep output in the file we handle it directly.
         asset_file = SUB_DIR / "assetfinder.txt"
         with open(asset_file, "w", encoding="utf-8") as handle:
             result = subprocess.run(["assetfinder", "--subs-only", TARGET], stdout=handle, stderr=subprocess.STDOUT, text=True)
@@ -620,15 +772,56 @@ Logs:
 def main() -> int:
     global TARGET, BASE_DIR, SUB_DIR, DNS_DIR, PORT_DIR, HTTP_DIR, SCREEN_DIR, DIR_DIR, JS_DIR, URL_DIR, PARAM_DIR, API_DIR, VULN_DIR, WAF_DIR, GIT_DIR, LOG_DIR, WORDLIST_DIR, MASTER_SUBDOMAINS, LIVE_HOSTS, ALL_URLS
 
+    # Handle command line arguments
+    if len(sys.argv) > 1:
+        arg = sys.argv[1].lower()
+        
+        if arg in ["--update", "-u"]:
+            log("Starting update process...")
+            if download_update():
+                success("Update installed. Please restart the script.")
+            return 0
+        
+        elif arg in ["--check-update", "-c"]:
+            return 0 if check_update() else 1
+        
+        elif arg in ["--update-menu", "-m"]:
+            show_update_menu()
+            return 0
+        
+        elif arg in ["--help", "-h"]:
+            print()
+            print("Bug Hunter - Authorized Security Recon Automation")
+            print()
+            print("USAGE:")
+            print(f"  {sys.argv[0]} <domain>              Run recon on target")
+            print(f"  {sys.argv[0]} --check-update (-c)   Check for updates")
+            print(f"  {sys.argv[0]} --update (-u)         Download and install update")
+            print(f"  {sys.argv[0]} --update-menu (-m)    Show update menu")
+            print(f"  {sys.argv[0]} --help (-h)           Show this help message")
+            print()
+            print("EXAMPLES:")
+            print(f"  {sys.argv[0]} example.com")
+            print(f"  {sys.argv[0]} --check-update")
+            print(f"  {sys.argv[0]} --update")
+            print()
+            return 0
+        
+        elif arg.startswith("-"):
+            error(f"Unknown option: {arg}")
+            print(f"Use '{sys.argv[0]} --help' for usage information")
+            return 1
+
     if len(sys.argv) < 2:
         print()
         print(f"Usage: {sys.argv[0]} <domain>")
         print(f"Example: {sys.argv[0]} example.com")
+        print(f"For more options: {sys.argv[0]} --help")
         return 1
 
     TARGET = parse_target(sys.argv[1])
     if not TARGET:
-        print("Target cannot be empty.")
+        error("Target cannot be empty.")
         return 1
 
     BASE_DIR = Path.cwd() / "targets" / TARGET
@@ -683,6 +876,8 @@ def main() -> int:
     print()
     print("Summary:")
     print(f"  {BASE_DIR / 'summary.txt'}")
+    print()
+    print(f"For updates: {sys.argv[0]} --check-update")
     print()
     return 0
 
