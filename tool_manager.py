@@ -109,7 +109,7 @@ TOOLS = {
             "go install github.com/ffuf/ffuf@latest",
             "Manual: https://github.com/ffuf/ffuf"
         ],
-        "check_cmd": "ffuf --version"
+        "check_cmd": "ffuf -h"
     },
     "gobuster": {
         "description": "Directory/DNS/VHost enumeration",
@@ -553,7 +553,7 @@ go install github.com/ffuf/ffuf@latest
 
 **Verification:**
 ```bash
-ffuf --version
+ffuf -h
 ```
 
 ---
