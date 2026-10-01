@@ -58,6 +58,16 @@ TOOLS = {
         ],
         "check_cmd": "assetfinder"
     },
+    "alterx": {
+        "description": "Alternative subdomain discovery tool",
+        "category": "Reconnaissance",
+        "status": "important",
+        "install_cmd": [
+            "go install -v github.com/projectdiscovery/alterx/cmd/alterx@latest",
+            "Manual: https://github.com/projectdiscovery/alterx"
+        ],
+        "check_cmd": "alterx"
+    },
     "dnsx": {
         "description": "DNS resolution and probing",
         "category": "DNS",
@@ -68,6 +78,26 @@ TOOLS = {
         ],
         "check_cmd": "dnsx"
     },
+    "puredns": {
+        "description": "DNS resolution and subdomain enumeration",
+        "category": "DNS",
+        "status": "important",
+        "install_cmd": [
+            "go install github.com/d3mondev/puredns/v2@latest",
+            "Manual: https://github.com/d3mondev/puredns"
+        ],
+        "check_cmd": "puredns"
+    },
+    "hakrevdns": {
+        "description": "Reverse DNS lookup tool",
+        "category": "DNS",
+        "status": "important",
+        "install_cmd": [
+            "go install github.com/hakluke/hakrevdns@latest",
+            "Manual: https://github.com/hakluke/hakrevdns"
+        ],
+        "check_cmd": "hakrevdns"
+    },
     "httpx": {
         "description": "HTTP probing and fingerprinting",
         "category": "HTTP",
@@ -77,6 +107,16 @@ TOOLS = {
             "Manual: https://github.com/projectdiscovery/httpx"
         ],
         "check_cmd": "httpx"
+    },
+    "tlsx": {
+        "description": "TLS certificate enumeration and probing",
+        "category": "HTTP",
+        "status": "important",
+        "install_cmd": [
+            "go install -v github.com/projectdiscovery/tlsx/cmd/tlsx@latest",
+            "Manual: https://github.com/projectdiscovery/tlsx"
+        ],
+        "check_cmd": "tlsx"
     },
     "nmap": {
         "description": "Network scanning and enumeration",
@@ -101,6 +141,26 @@ TOOLS = {
         ],
         "check_cmd": "masscan"
     },
+    "asnmap": {
+        "description": "ASN/IP mapping and enumeration",
+        "category": "Scanning",
+        "status": "important",
+        "install_cmd": [
+            "go install -v github.com/projectdiscovery/asnmap/cmd/asnmap@latest",
+            "Manual: https://github.com/projectdiscovery/asnmap"
+        ],
+        "check_cmd": "asnmap"
+    },
+    "mapcidr": {
+        "description": "CIDR and IP range mapping",
+        "category": "Scanning",
+        "status": "important",
+        "install_cmd": [
+            "go install -v github.com/projectdiscovery/mapcidr/cmd/mapcidr@latest",
+            "Manual: https://github.com/projectdiscovery/mapcidr"
+        ],
+        "check_cmd": "mapcidr"
+    },
     "ffuf": {
         "description": "Fuzzing framework for directory discovery",
         "category": "Fuzzing",
@@ -121,6 +181,26 @@ TOOLS = {
         ],
         "check_cmd": "gobuster"
     },
+    "feroxbuster": {
+        "description": "Fast web content discovery tool",
+        "category": "Fuzzing",
+        "status": "important",
+        "install_cmd": [
+            "cargo install feroxbuster",
+            "Manual: https://github.com/epi052/feroxbuster"
+        ],
+        "check_cmd": "feroxbuster"
+    },
+    "gf": {
+        "description": "Grep patterns for filtering and searching",
+        "category": "Fuzzing",
+        "status": "important",
+        "install_cmd": [
+            "go install github.com/tomnomnom/gf@latest",
+            "Manual: https://github.com/tomnomnom/gf"
+        ],
+        "check_cmd": "gf"
+    },
     "gau": {
         "description": "Get all URLs from Wayback Machine, Common Crawl, Alien Vault",
         "category": "URL Collection",
@@ -140,6 +220,36 @@ TOOLS = {
             "Manual: https://github.com/tomnomnom/waybackurls"
         ],
         "check_cmd": "waybackurls"
+    },
+    "hakrawler": {
+        "description": "Web crawler for discovering URLs and parameters",
+        "category": "URL Collection",
+        "status": "important",
+        "install_cmd": [
+            "go install github.com/hakluke/hakrawler@latest",
+            "Manual: https://github.com/hakluke/hakrawler"
+        ],
+        "check_cmd": "hakrawler"
+    },
+    "katana": {
+        "description": "Advanced web crawler and parameter discovery",
+        "category": "URL Collection",
+        "status": "important",
+        "install_cmd": [
+            "go install github.com/projectdiscovery/katana/cmd/katana@latest",
+            "Manual: https://github.com/projectdiscovery/katana"
+        ],
+        "check_cmd": "katana"
+    },
+    "unfurl": {
+        "description": "URL parsing and extraction tool",
+        "category": "URL Collection",
+        "status": "important",
+        "install_cmd": [
+            "go install github.com/tomnomnom/unfurl@latest",
+            "Manual: https://github.com/tomnomnom/unfurl"
+        ],
+        "check_cmd": "unfurl"
     },
     "eyewitness": {
         "description": "Web application screenshot tool",
@@ -226,23 +336,78 @@ TOOLS = {
             "python3 cmseek.py --help"
         ],
         "check_cmd": "cmseek"
+    },
+    "gitleaks": {
+        "description": "Secret scanning tool for Git repositories",
+        "category": "Secret Scanning",
+        "status": "important",
+        "install_cmd": [
+            "go install github.com/gitleaks/gitleaks/v8@latest",
+            "Manual: https://github.com/gitleaks/gitleaks"
+        ],
+        "check_cmd": "gitleaks"
+    },
+    "cloud_enum": {
+        "description": "Cloud storage enumeration tool",
+        "category": "Cloud",
+        "status": "important",
+        "install_cmd": [
+            "pip3 install cloud-enum",
+            "git clone https://github.com/initstring/cloud_enum.git",
+            "cd cloud_enum && pip3 install -r requirements.txt"
+        ],
+        "check_cmd": "cloud_enum"
+    },
+    "slurp": {
+        "description": "AWS S3 bucket finder and enumerator",
+        "category": "Cloud",
+        "status": "important",
+        "install_cmd": [
+            "go install github.com/0xsha/slurp@latest",
+            "Manual: https://github.com/0xsha/slurp"
+        ],
+        "check_cmd": "slurp"
+    },
+    "s3scanner": {
+        "description": "AWS S3 bucket scanner",
+        "category": "Cloud",
+        "status": "important",
+        "install_cmd": [
+            "pip3 install s3-scanner",
+            "git clone https://github.com/sa7mon/S3Scanner.git",
+            "cd S3Scanner && pip3 install -r requirements.txt"
+        ],
+        "check_cmd": "s3scanner"
+    },
+    "metabigor": {
+        "description": "Gather metadata from public sources",
+        "category": "OSINT",
+        "status": "important",
+        "install_cmd": [
+            "go install -v github.com/j3ssie/metabigor@latest",
+            "Manual: https://github.com/j3ssie/metabigor"
+        ],
+        "check_cmd": "metabigor"
     }
 }
 
 # Tools grouped by category
 CATEGORIES = {
-    "Reconnaissance": ["subfinder", "amass", "assetfinder"],
-    "DNS": ["dnsx"],
-    "HTTP": ["httpx"],
-    "Scanning": ["nmap", "masscan"],
-    "Fuzzing": ["ffuf", "gobuster"],
-    "URL Collection": ["gau", "waybackurls"],
+    "Reconnaissance": ["subfinder", "amass", "assetfinder", "alterx"],
+    "DNS": ["dnsx", "puredns", "hakrevdns"],
+    "HTTP": ["httpx", "tlsx"],
+    "Scanning": ["nmap", "masscan", "asnmap", "mapcidr"],
+    "Fuzzing": ["ffuf", "gobuster", "feroxbuster", "gf"],
+    "URL Collection": ["gau", "waybackurls", "hakrawler", "katana", "unfurl"],
     "Screenshots": ["eyewitness", "aquatone"],
     "Parameters": ["paramspider", "arjun"],
     "API": ["kiterunner"],
     "Vulnerabilities": ["nikto"],
     "WAF Detection": ["wafw00f"],
-    "CMS Detection": ["cmseek"]
+    "CMS Detection": ["cmseek"],
+    "Secret Scanning": ["gitleaks"],
+    "Cloud": ["cloud_enum", "slurp", "s3scanner"],
+    "OSINT": ["metabigor"]
 }
 
 
@@ -438,13 +603,14 @@ This guide provides installation instructions for all tools used by Bug Hunter.
 - Go 1.16+ (for most tools)
 - Git
 - curl/wget
+- Rust/Cargo (for feroxbuster)
 
 ### Installation on Different Systems
 
 #### Debian/Ubuntu
 ```bash
 sudo apt-get update
-sudo apt-get install -y python3 python3-pip golang-go git curl
+sudo apt-get install -y python3 python3-pip golang-go git curl build-essential
 ```
 
 #### macOS
@@ -457,315 +623,21 @@ brew install python go git curl
 sudo yum install -y python3 python3-pip golang git curl
 ```
 
-## Essential Tools
+## Tool Installation
 
-### 1. subfinder
-Subdomain enumeration tool by ProjectDiscovery.
-
-```bash
-go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
-```
-
-**Verification:**
-```bash
-subfinder --version
-```
-
----
-
-### 2. amass
-In-depth subdomain enumeration by OWASP.
+For detailed installation instructions, run:
 
 ```bash
-go install -v github.com/OWASP/Amass/v3/...@master
+python3 tool_manager.py --info <tool-name>
+python3 tool_manager.py --guide
 ```
-
-**Verification:**
-```bash
-amass -version
-```
-
----
-
-### 3. assetfinder
-Find domains and subdomains.
-
-```bash
-go install github.com/tomnomnom/assetfinder@latest
-```
-
-**Verification:**
-```bash
-assetfinder --help
-```
-
----
-
-### 4. httpx
-HTTP probing and fingerprinting tool.
-
-```bash
-go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
-```
-
-**Verification:**
-```bash
-httpx --version
-```
-
----
-
-### 5. nmap
-Network scanning and enumeration.
-
-**Debian/Ubuntu:**
-```bash
-sudo apt-get install nmap
-```
-
-**macOS:**
-```bash
-brew install nmap
-```
-
-**Verification:**
-```bash
-nmap --version
-```
-
----
-
-### 6. ffuf
-Fuzzing framework for directory discovery.
-
-```bash
-go install github.com/ffuf/ffuf@latest
-```
-
-**Verification:**
-```bash
-ffuf -h
-```
-
----
-
-### 7. gobuster
-Directory/DNS/VHost enumeration.
-
-```bash
-go install github.com/OJ/gobuster/v3@latest
-```
-
-**Verification:**
-```bash
-gobuster version
-```
-
----
-
-## Important Tools
-
-### 1. dnsx
-DNS resolution and probing.
-
-```bash
-go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest
-```
-
----
-
-### 2. masscan
-Fast port scanner.
-
-**Debian/Ubuntu:**
-```bash
-sudo apt-get install masscan
-```
-
-**macOS:**
-```bash
-brew install masscan
-```
-
-**Verification:**
-```bash
-masscan --version
-```
-
----
-
-### 3. gau
-Get all URLs from various sources.
-
-```bash
-go install github.com/lc/gau/v2/cmd/gau@latest
-```
-
----
-
-### 4. waybackurls
-Fetch URLs from Wayback Machine.
-
-```bash
-go install github.com/tomnomnom/waybackurls@latest
-```
-
----
-
-### 5. paramspider
-Parameter discovery tool.
-
-```bash
-pip3 install paramspider
-```
-
-Or from source:
-```bash
-git clone https://github.com/0xJs/ParamSpider.git
-cd ParamSpider
-pip3 install -r requirements.txt
-```
-
----
-
-### 6. arjun
-HTTP parameter discovery.
-
-```bash
-pip3 install arjun
-```
-
-Or from source:
-```bash
-git clone https://github.com/s0md3v/Arjun.git
-cd Arjun
-pip3 install -r requirements.txt
-```
-
----
-
-### 7. kiterunner
-API endpoint discovery.
-
-```bash
-go install github.com/assetnote/kiterunner@latest
-```
-
----
-
-### 8. nikto
-Web server vulnerability scanner.
-
-**Debian/Ubuntu:**
-```bash
-sudo apt-get install nikto
-```
-
-**macOS:**
-```bash
-brew install nikto
-```
-
----
-
-### 9. wafw00f
-WAF detection tool.
-
-```bash
-pip3 install wafw00f
-```
-
-Or from source:
-```bash
-git clone https://github.com/EnableSecurity/wafw00f.git
-cd wafw00f
-pip3 install -r requirements.txt
-```
-
----
-
-## Optional Tools
-
-### 1. eyewitness
-Web application screenshot tool.
-
-```bash
-pip3 install eyewitness
-```
-
-Or from source:
-```bash
-git clone https://github.com/RedSiege/EyeWitness.git
-cd EyeWitness
-pip3 install -r requirements.txt
-```
-
----
-
-### 2. aquatone
-Subdomain takeover and screenshot tool.
-
-```bash
-go install github.com/michenriksen/aquatone@latest
-```
-
----
-
-### 3. cmseek
-CMS detection and fingerprinting.
-
-```bash
-git clone https://github.com/Tuhinshubhra/CMSeeK.git
-cd CMSeeK
-pip3 install -r requirements.txt
-python3 cmseek.py --help
-```
-
----
-
-## Quick Installation Script
-
-Create an executable script to install all tools:
-
-```bash
-#!/bin/bash
-
-# Update system
-sudo apt-get update && sudo apt-get upgrade -y
-
-# Install Go tools
-echo "[*] Installing Go-based tools..."
-go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
-go install -v github.com/OWASP/Amass/v3/...@master
-go install github.com/tomnomnom/assetfinder@latest
-go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
-go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest
-go install github.com/ffuf/ffuf@latest
-go install github.com/OJ/gobuster/v3@latest
-go install github.com/lc/gau/v2/cmd/gau@latest
-go install github.com/tomnomnom/waybackurls@latest
-go install github.com/assetnote/kiterunner@latest
-go install github.com/michenriksen/aquatone@latest
-
-# Install system packages
-echo "[*] Installing system packages..."
-sudo apt-get install -y nmap masscan nikto
-
-# Install Python tools
-echo "[*] Installing Python-based tools..."
-pip3 install paramspider arjun wafw00f eyewitness
-
-echo "[+] Installation complete!"
-```
-
----
 
 ## Verification
 
 To check all installed tools:
 
 ```bash
-python3 automation-script-bug.py --check
+python3 tool_manager.py --check
 ```
 
 To list all available tools:
@@ -774,7 +646,11 @@ To list all available tools:
 python3 tool_manager.py --list
 ```
 
----
+To view installation details for a specific tool:
+
+```bash
+python3 tool_manager.py --info <tool-name>
+```
 
 ## Troubleshooting
 
@@ -792,13 +668,12 @@ Update pip:
 pip3 install --upgrade pip
 ```
 
-### Permission Denied
-Some tools may require sudo. Be cautious:
+### Rust/Cargo Issues (for feroxbuster)
+Install Rust:
 ```bash
-sudo apt-get install <tool-name>
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
 ```
-
----
 
 ## Support
 
@@ -833,7 +708,7 @@ def show_help() -> None:
     print("  python3 tool_manager.py --list")
     print("  python3 tool_manager.py --check")
     print("  python3 tool_manager.py --info subfinder")
-    print("  python3 tool_manager.py --install httpx")
+    print("  python3 tool_manager.py --install katana")
     print("  python3 tool_manager.py --guide")
     print()
 
