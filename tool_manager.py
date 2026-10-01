@@ -36,7 +36,7 @@ TOOLS = {
             "go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest",
             "Manual: https://github.com/projectdiscovery/subfinder"
         ],
-        "check_cmd": "subfinder --version"
+        "check_cmd": "subfinder"
     },
     "amass": {
         "description": "In-depth subdomain enumeration",
@@ -46,7 +46,7 @@ TOOLS = {
             "go install -v github.com/OWASP/Amass/v3/...@master",
             "Manual: https://github.com/OWASP/Amass"
         ],
-        "check_cmd": "amass -version"
+        "check_cmd": "amass"
     },
     "assetfinder": {
         "description": "Find domains and subdomains",
@@ -56,7 +56,7 @@ TOOLS = {
             "go install github.com/tomnomnom/assetfinder@latest",
             "Manual: https://github.com/tomnomnom/assetfinder"
         ],
-        "check_cmd": "assetfinder --help"
+        "check_cmd": "assetfinder"
     },
     "dnsx": {
         "description": "DNS resolution and probing",
@@ -66,7 +66,7 @@ TOOLS = {
             "go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest",
             "Manual: https://github.com/projectdiscovery/dnsx"
         ],
-        "check_cmd": "dnsx --version"
+        "check_cmd": "dnsx"
     },
     "httpx": {
         "description": "HTTP probing and fingerprinting",
@@ -76,7 +76,7 @@ TOOLS = {
             "go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest",
             "Manual: https://github.com/projectdiscovery/httpx"
         ],
-        "check_cmd": "httpx --help"
+        "check_cmd": "httpx"
     },
     "nmap": {
         "description": "Network scanning and enumeration",
@@ -88,7 +88,7 @@ TOOLS = {
             "yum install nmap -y      # RHEL/CentOS",
             "Manual: https://nmap.org"
         ],
-        "check_cmd": "nmap --version"
+        "check_cmd": "nmap"
     },
     "masscan": {
         "description": "Fast port scanner",
@@ -99,7 +99,7 @@ TOOLS = {
             "brew install masscan        # macOS",
             "Manual: https://github.com/robertdavidgraham/masscan"
         ],
-        "check_cmd": "masscan --version"
+        "check_cmd": "masscan"
     },
     "ffuf": {
         "description": "Fuzzing framework for directory discovery",
@@ -109,7 +109,7 @@ TOOLS = {
             "go install github.com/ffuf/ffuf@latest",
             "Manual: https://github.com/ffuf/ffuf"
         ],
-        "check_cmd": "ffuf -h"
+        "check_cmd": "ffuf"
     },
     "gobuster": {
         "description": "Directory/DNS/VHost enumeration",
@@ -119,7 +119,7 @@ TOOLS = {
             "go install github.com/OJ/gobuster/v3@latest",
             "Manual: https://github.com/OJ/gobuster"
         ],
-        "check_cmd": "gobuster version"
+        "check_cmd": "gobuster"
     },
     "gau": {
         "description": "Get all URLs from Wayback Machine, Common Crawl, Alien Vault",
@@ -129,7 +129,7 @@ TOOLS = {
             "go install github.com/lc/gau/v2/cmd/gau@latest",
             "Manual: https://github.com/lc/gau"
         ],
-        "check_cmd": "gau --version"
+        "check_cmd": "gau"
     },
     "waybackurls": {
         "description": "Fetch all URLs from Wayback Machine",
@@ -139,7 +139,7 @@ TOOLS = {
             "go install github.com/tomnomnom/waybackurls@latest",
             "Manual: https://github.com/tomnomnom/waybackurls"
         ],
-        "check_cmd": "waybackurls --help"
+        "check_cmd": "waybackurls"
     },
     "eyewitness": {
         "description": "Web application screenshot tool",
@@ -150,7 +150,7 @@ TOOLS = {
             "git clone https://github.com/RedSiege/EyeWitness.git",
             "cd EyeWitness && pip3 install -r requirements.txt"
         ],
-        "check_cmd": "eyewitness --help"
+        "check_cmd": "eyewitness"
     },
     "aquatone": {
         "description": "Subdomain takeover and screenshot tool",
@@ -160,7 +160,7 @@ TOOLS = {
             "go install github.com/michenriksen/aquatone@latest",
             "Manual: https://github.com/michenriksen/aquatone"
         ],
-        "check_cmd": "aquatone --version"
+        "check_cmd": "aquatone"
     },
     "paramspider": {
         "description": "Parameter discovery tool",
@@ -171,7 +171,7 @@ TOOLS = {
             "git clone https://github.com/0xJs/ParamSpider.git",
             "cd ParamSpider && pip3 install -r requirements.txt"
         ],
-        "check_cmd": "paramspider --help"
+        "check_cmd": "paramspider"
     },
     "arjun": {
         "description": "HTTP parameter discovery",
@@ -182,7 +182,7 @@ TOOLS = {
             "git clone https://github.com/s0md3v/Arjun.git",
             "cd Arjun && pip3 install -r requirements.txt"
         ],
-        "check_cmd": "arjun --help"
+        "check_cmd": "arjun"
     },
     "kiterunner": {
         "description": "API endpoint discovery",
@@ -192,7 +192,7 @@ TOOLS = {
             "go install github.com/assetnote/kiterunner@latest",
             "Manual: https://github.com/assetnote/kiterunner"
         ],
-        "check_cmd": "kr --help"
+        "check_cmd": "kr"
     },
     "nikto": {
         "description": "Web server vulnerability scanner",
@@ -203,7 +203,7 @@ TOOLS = {
             "brew install nikto        # macOS",
             "Manual: https://github.com/sullo/nikto"
         ],
-        "check_cmd": "nikto --version"
+        "check_cmd": "nikto"
     },
     "wafw00f": {
         "description": "WAF detection tool",
@@ -214,7 +214,7 @@ TOOLS = {
             "git clone https://github.com/EnableSecurity/wafw00f.git",
             "cd wafw00f && pip3 install -r requirements.txt"
         ],
-        "check_cmd": "wafw00f --version"
+        "check_cmd": "wafw00f"
     },
     "cmseek": {
         "description": "CMS detection and fingerprinting",
@@ -225,7 +225,7 @@ TOOLS = {
             "cd CMSeeK && pip3 install -r requirements.txt",
             "python3 cmseek.py --help"
         ],
-        "check_cmd": "cmseek --help"
+        "check_cmd": "cmseek"
     }
 }
 
@@ -263,22 +263,13 @@ def error(message: str) -> None:
 
 
 def is_tool_installed(tool_name: str) -> bool:
-    """Check if a tool is installed."""
+    """Check if a tool is installed using shutil.which()."""
     if tool_name not in TOOLS:
         return False
     
-    check_cmd = TOOLS[tool_name]["check_cmd"]
-    try:
-        result = subprocess.run(
-            check_cmd,
-            shell=True,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            timeout=5
-        )
-        return result.returncode == 0
-    except Exception:
-        return False
+    tool_cmd = TOOLS[tool_name]["check_cmd"]
+    # Use shutil.which() to check if the tool exists in PATH
+    return shutil.which(tool_cmd) is not None
 
 
 def check_all_tools() -> Dict[str, Dict]:
@@ -594,6 +585,11 @@ sudo apt-get install masscan
 **macOS:**
 ```bash
 brew install masscan
+```
+
+**Verification:**
+```bash
+masscan --version
 ```
 
 ---
